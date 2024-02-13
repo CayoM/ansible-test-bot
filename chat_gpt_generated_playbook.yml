@@ -4,37 +4,37 @@
   become: true
   tasks:
     - name: Update package cache and install Apache
-      apt:
-        update_cache: yes
+      ansible.builtin.apt:
+        update_cache: true
         name: apache2
       become: true
 
     - name: Ensure Apache service is running and enabled
-      service:
+      ansible.builtin.service:
         name: apache2
         state: started
-        enabled: yes
+        enabled: true
       become: true
 
     - name: Create HTML directory
-      file:
+      ansible.builtin.file:
         path: /var/www/html
         state: directory
         owner: www-data
         group: www-data
-        mode: '0755'
+        mode: "0755"
       become: true
 
     - name: Create Hello World HTML file
-      copy:
-        content: "<html><body><h1>Hello, World!</h1></body></html>"
+      ansible.builtin.copy:
+        content: <html><body><h1>Hello, World!</h1></body></html>
         dest: /var/www/html/index.html
       become: true
 
     - name: Set permissions for HTML file
-      file:
+      ansible.builtin.file:
         path: /var/www/html/index.html
         owner: www-data
         group: www-data
-        mode: '0644'
+        mode: "0644"
       become: true
